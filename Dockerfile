@@ -1,14 +1,14 @@
-FROM alpine:latest
+FROM node:7-alpine
 
-ENV instDir /Hatjitsu
+WORKDIR /Hatjitsu
+ADD . .
 
-RUN apk --no-cache add nodejs git && \
-    git clone https://github.com/richarcher/Hatjitsu.git ${instDir} && \
-    cd ${instDir} && \
-    npm install -d
+# RUN apk --no-cache add nodejs git
+# RUN env
+# RUN echo $PATH
+# RUN npm bin -g
+RUN npm install -d
 
 EXPOSE 5000
-
-WORKDIR ${instDir}
 
 CMD node server
