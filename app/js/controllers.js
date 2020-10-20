@@ -124,7 +124,7 @@ function RoomCtrl($scope, $routeParams, $timeout, socket) {
     var voteArr = [];
     voteArr.length = $scope.voterCount - voteCount;
     $scope.placeholderVotes = voteArr;
-    $scope.showAverage = voteArr.length === 0;
+    $scope.showAverage = (voteArr.length === 0 || $scope.forcedReveal);
 
 
     var total =  _.reduce(_.map(_.pluck($scope.votes, 'vote'), parseFloat), sumOfTwo, 0);
