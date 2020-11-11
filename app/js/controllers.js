@@ -89,11 +89,11 @@ function standardDeviation(values){
 }
 
 function average(data){
-  var sum = data.reduce(function(sum, value){
+  var values = data.filter(d => !isNaN(parseInt(d)));
+  var sum = values.reduce(function(sum, value){
     return sum + parseInt(value);
   }, 0);
-
-  var avg = sum / data.length;
+  var avg = sum / values.length;
   return avg;
 }
 
@@ -128,7 +128,7 @@ function RoomCtrl($scope, $routeParams, $timeout, socket) {
 
 
     var total =  _.reduce(_.map(_.pluck($scope.votes, 'vote'), parseFloat), sumOfTwo, 0);
-    $scope.votingAverage = Math.round(total / $scope.votes.length);
+    $scope.votingAverage = average(_.pluck($scope.votes, 'vote')); // Math.round(total / $scope.votes.length);
     $scope.votingStandardDeviation = standardDeviation(_.pluck($scope.votes, 'vote'), parseFloat);
 
     $scope.forceRevealDisable = (!$scope.forcedReveal && ($scope.votes.length < $scope.voterCount || $scope.voterCount === 0)) ? false : true;
